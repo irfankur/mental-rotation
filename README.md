@@ -62,8 +62,6 @@ The site is already published on GitHub Pages. To start saving data (steps as in
 5. Paste the ID into `js/config.js` (`DATAPIPE_EXPERIMENT_ID: "…"`), then commit and push. While the ID is empty, the live site shows a "data collection paused" notice instead of the task.
 6. **Pilot:** run the live link once yourself without `?test=1`. A file `<random-id>.csv` should appear in the Drive folder within a few seconds. Delete it afterwards.
 
-> **About OSF.** DataPipe stopped writing to OSF on 16 November 2026, when OSF shut down its projects feature. Data already collected there stays in your OSF account. If uploads failed after the cutoff, check the old experiment's DataPipe dashboard: it keeps failed files for up to 7 days, and you can download them there.
-
 Live link: **`https://irfankur.github.io/mental-rotation/`**
 
 ## 3. Share on social media
@@ -119,6 +117,7 @@ There is one CSV per participant in the experiment's Google Drive folder. Each r
 
 - [ ] Run `node tools/check_shapes.js` (should say OK) and look at `tools/gallery.html`
 - [ ] Pilot on a phone and a laptop
-- [ ] New DataPipe experiment on Google Drive, ID in `js/config.js`, collection switched **ON**; a test file arrives in Drive
+- [x] DataPipe experiment on Google Drive, ID in `js/config.js`, collection switched **ON**
+- [ ] Pilot run: a test file arrives in the Drive folder
 - [ ] Lecturer / ethics approval, if your course requires it
 - [ ] Switch DataPipe OFF when you finish
