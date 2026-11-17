@@ -1,4 +1,4 @@
-/* Mental Rotation Task (Bahasa Indonesia), jsPsych 8 + DataPipe -> OSF */
+/* Mental Rotation Task (Bahasa Indonesia), jsPsych 8 + DataPipe */
 (function () {
   "use strict";
   const CFG = window.STUDY_CONFIG;
@@ -8,6 +8,21 @@
   // ?test=1 -> short version (6 practice, 8 test trials); data downloaded locally
   const TEST_MODE = params.get("test") === "1";
   const USE_PIPE = !!CFG.DATAPIPE_EXPERIMENT_ID && !TEST_MODE;
+
+  // Live site without a DataPipe ID = data collection is paused: show a notice
+  // instead of the task, so nobody does the whole task without their data being saved.
+  if (!CFG.DATAPIPE_EXPERIMENT_ID && !TEST_MODE) {
+    document.getElementById("jspsych-target").innerHTML = `
+      <div class="shell"><div class="card">
+        <p class="eyebrow">Eksperimen Psikologi</p>
+        <h1>Tes Bentuk 3D</h1>
+        <h2>Pengambilan data sedang dijeda</h2>
+        <p>Tempat penyimpanan data penelitian ini sedang dipindahkan, jadi eksperimen belum bisa diikuti untuk sementara.</p>
+        <p>Silakan buka tautan ini lagi dalam beberapa hari. Terima kasih atas minat Anda!</p>
+        <p class="small muted">Pertanyaan: ${CFG.RESEARCHER_CONTACT}</p>
+      </div></div>`;
+    return;
+  }
 
   // Device detection: only a suggestion; the participant confirms it.
   const coarse = window.matchMedia("(pointer: coarse)").matches;

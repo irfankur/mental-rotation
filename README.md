@@ -1,6 +1,6 @@
 # Mental Rotation Task (Bahasa Indonesia), online
 
-A free online version of the classic Shepard & Metzler (1971) mental rotation task, built with **jsPsych 8**. It is hosted on **GitHub Pages**, and **DataPipe** saves each participant's data to **OSF**. It works on phones, tablets, laptops and PCs.
+A free online version of the classic Shepard & Metzler (1971) mental rotation task, built with **jsPsych 8**. It is hosted on **GitHub Pages**, and **DataPipe** saves each participant's data to your **Google Drive**. It works on phones, tablets, laptops and PCs.
 
 On each trial the participant sees two 3D cube figures. The second figure is either the **same** figure rotated in depth, or its **mirror image** rotated in depth. The participant answers **SAMA** (same) or **BEDA** (different) as quickly and accurately as possible.
 
@@ -47,18 +47,22 @@ From the `UTS` folder:
 python -m http.server 8766 --directory mental-rotation
 ```
 
-- `http://localhost:8766/?test=1` is a short version (6 practice, 8 test trials). The CSV is **downloaded** to your computer instead of sent to OSF.
+- `http://localhost:8766/?test=1` is a short version (6 practice, 8 test trials). The CSV is **downloaded** to your computer instead of sent to DataPipe.
 - `http://localhost:8766/?test=1&input=touch` forces the phone layout.
 - `http://localhost:8766/tools/gallery.html` shows one sample pair for every figure × angle × same/mirror.
 
-## 2. Publish and connect DataPipe → OSF
+## 2. Connect DataPipe → Google Drive
 
-These are the same steps as for the emotional Stroop task:
-1. Create a public GitHub repo `mental-rotation` and push this folder.
-2. Turn on Pages: *Settings → Pages → Deploy from a branch → `main` / root*.
-3. The DataPipe experiment ID is already set in `js/config.js` (`UhaVEm8FocQQ`).
-4. In DataPipe, switch **Enable data collection** ON.
-5. Do one pilot run on the live link (without `?test=1`) and check that a CSV arrives in OSF. Then delete that pilot file.
+The site is already published on GitHub Pages. To start saving data (steps as in the emotional Stroop README):
+
+1. **Sign-in:** if you sign in to DataPipe with OSF, add another sign-in method (Google, GitHub, ORCID or email) under *Account settings*. OSF sign-in is being retired, and without another method you can lose access to your experiments.
+2. **Connect storage:** in DataPipe's *Account settings*, connect **Google Drive**. This is the quickest option, and the data stays private in your own Drive. Dataverse (institutional) and Zenodo (public, with a DOI) are the other options.
+3. Click **Create new experiment**, give it a title, and choose Google Drive. DataPipe creates a folder for it in your Drive. Leave **Psych-DS metadata** off unless you need it: the setting locks after the first submission.
+4. On the experiment's page, switch **Enable data collection** ON, and copy the **Experiment ID**.
+5. Paste the ID into `js/config.js` (`DATAPIPE_EXPERIMENT_ID: "…"`), then commit and push. While the ID is empty, the live site shows a "data collection paused" notice instead of the task.
+6. **Pilot:** run the live link once yourself without `?test=1`. A file `<random-id>.csv` should appear in the Drive folder within a few seconds. Delete it afterwards.
+
+> **About OSF.** DataPipe stopped writing to OSF on 16 November 2026, when OSF shut down its projects feature. Data already collected there stays in your OSF account. If uploads failed after the cutoff, check the old experiment's DataPipe dashboard: it keeps failed files for up to 7 days, and you can download them there.
 
 Live link: **`https://irfankur.github.io/mental-rotation/`**
 
@@ -80,7 +84,7 @@ For an age comparison, deliberately recruit older adults too (e.g. 40+): parents
 
 ## 4. Data
 
-There is one CSV per participant in the OSF data component. Each row is one jsPsych trial. For the analysis, filter on `task == "test"`.
+There is one CSV per participant in the experiment's Google Drive folder. Each row is one jsPsych trial. For the analysis, filter on `task == "test"`.
 
 | Column | Meaning |
 |---|---|
@@ -115,6 +119,6 @@ There is one CSV per participant in the OSF data component. Each row is one jsPs
 
 - [ ] Run `node tools/check_shapes.js` (should say OK) and look at `tools/gallery.html`
 - [ ] Pilot on a phone and a laptop
-- [ ] DataPipe data collection switched **ON**; a test file arrives in OSF
+- [ ] New DataPipe experiment on Google Drive, ID in `js/config.js`, collection switched **ON**; a test file arrives in Drive
 - [ ] Lecturer / ethics approval, if your course requires it
 - [ ] Switch DataPipe OFF when you finish

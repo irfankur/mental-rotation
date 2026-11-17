@@ -2,10 +2,12 @@
 //  CONFIGURATION: the only file you need to edit before sharing.
 // =====================================================================
 window.STUDY_CONFIG = {
-  // Experiment ID from https://pipe.jspsych.org
-  // Leave empty ("") while testing: data is then downloaded as a CSV
-  // file on the device instead of being sent to OSF.
-  DATAPIPE_EXPERIMENT_ID: "UhaVEm8FocQQ",
+  // Experiment ID from https://pipe.jspsych.org (an experiment saving to Google Drive,
+  // Dataverse or Zenodo; DataPipe stopped writing to OSF on 16 Nov 2026).
+  // Empty ("") = the live site shows a "data collection paused" notice instead of the task.
+  // With ?test=1 the data is always downloaded as a CSV on the device instead.
+  // Previous experiment on OSF (closed 16 Nov 2026; its data stays in OSF): UhaVEm8FocQQ
+  DATAPIPE_EXPERIMENT_ID: "",
 
   // Shown on the consent and debrief pages.
   RESEARCHER_NAME: "Irfan Kurniawan",
