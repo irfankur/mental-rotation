@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Figure gallery (check stimuli)</title>
+<style>
+  body { background: #1d1f22; color: #eee; font: 13px system-ui, sans-serif; margin: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+  .cell { background: #26292d; border-radius: 8px; padding: 6px; }
+  .pair { display: flex; gap: 4px; }
+  canvas { background: #e6e8eb; border-radius: 6px; }
+</style>
+</head>
+<body>
+<p>Every test figure x angle x pair type, with views chosen by the same rules as the experiment
+(angle margin + visibility). Reload for new random views. <b>s</b> = same, <b>m</b> = mirror.</p>
+<div class="grid" id="g"></div>
+<script src="../js/config.js"></script>
+<script src="../js/figures.js"></script>
+<script>
+  const CFG = window.STUDY_CONFIG, F = window.FIGURES;
+  const okAz = (a) => { const m = ((a % 90) + 90) % 90; return m >= CFG.AXIS_MARGIN && m <= 90 - CFG.AXIS_MARGIN; };
+  const good = (s, m, az) => okAz(az) && F.visibility(F.SHAPES[s], az, CFG.ELEVATION, m) >= CFG.MIN_VISIBILITY;
+  const shapes = new URLSearchParams(location.search).get("practice") ? F.PRACTICE_SHAPES : F.TEST_SHAPES;
+  shapes.forEach((s) => CFG.ANGLES.forEach((ang) => [false, true].forEach((m) => {
+    const opts = [];
+    for (let L = 0; L < 360; L += 5) [-1, 1].forEach((d) => {
+      const Rr = (((L + d * ang) % 360) + 360) % 360;
+      if (good(s, false, L) && good(s, m, Rr)) opts.push([L, Rr]);
+    });
+    const [L, Rr] = opts[Math.floor(Math.random() * opts.length)];
+    const cell = document.createElement("div");
+    cell.className = "cell";
+    cell.innerHTML = `<div class="pair"><canvas></canvas><canvas></canvas></div>${s} ${ang}° ${m ? "m" : "s"} (az ${L}→${Rr}, ${opts.length} options)`;
+    document.getElementById("g").appendChild(cell);
+    const [a, b] = cell.querySelectorAll("canvas");
+    F.draw(a, { cubes: F.SHAPES[s], az: L, el: CFG.ELEVATION, size: 118 });
+    F.draw(b, { cubes: F.SHAPES[s], az: Rr, el: CFG.ELEVATION, size: 118, mirror: m });
+  })));
+</script>
+</body>
+</html>

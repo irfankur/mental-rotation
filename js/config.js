@@ -1,0 +1,35 @@
+// =====================================================================
+//  CONFIGURATION: the only file you need to edit before sharing.
+// =====================================================================
+window.STUDY_CONFIG = {
+  // Experiment ID from https://pipe.jspsych.org
+  // Leave empty ("") while testing: data is then downloaded as a CSV
+  // file on the device instead of being sent to OSF.
+  DATAPIPE_EXPERIMENT_ID: "UhaVEm8FocQQ",
+
+  // Shown on the consent and debrief pages.
+  RESEARCHER_NAME: "Irfan Kurniawan",
+  RESEARCHER_CONTACT: "ipanikur66@gmail.com / 081298515327",
+  INSTITUTION: "Fakultas Psikologi, Universitas Indonesia Maju",
+
+  // Design: every test figure appears once per angle x pair type
+  // (8 figures x 4 angles x 2 = 64 trials).
+  ANGLES: [0, 50, 100, 150], // rotation of the right figure, in degrees
+  ELEVATION: 30, // viewing angle from above, in degrees
+  AXIS_MARGIN: 15, // avoid views where an arm points straight at the viewer (deg from 0/90/180/270)
+  MIN_VISIBILITY: 0.3, // reject views where a cube is hidden (least-visible cube < 30% of the median cube)
+
+  // Response keys (keyboard). Touch screens get two on-screen buttons.
+  KEY_SAME: "a",
+  KEY_DIFF: "l",
+
+  // Timing (ms)
+  FIXATION_MS: 500,
+  TRIAL_MAX_MS: 8000,
+  ITI_MS: 500,
+  FEEDBACK_MS: 800,
+
+  // Practice: 6 trials with feedback, repeated once if fewer than 4 correct.
+  PRACTICE_TRIALS: 6,
+  PRACTICE_PASS_CORRECT: 4,
+};
